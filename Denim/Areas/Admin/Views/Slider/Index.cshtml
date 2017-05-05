@@ -1,0 +1,35 @@
+﻿@model IEnumerable<Denim.Models.Slider>
+@using GridMvc.Html
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<script src="~/Scripts/gridmvc.min.js"></script>
+<link href="~/Content/Gridmvc.css" rel="stylesheet" />
+<div class="code-cut">
+    @Html.Grid(Model).Columns(columns =>
+{
+columns.Add(c => c.ImageName).Titled("Name").Filterable(true);
+
+columns.Add()
+.Encoded(false)
+
+.Sanitized(false)
+.RenderValueAs(o =>@<img src=~/@o.ImagePath height="100" width="200">).Titled("Image");
+
+    columns.Add()
+    .Titled("Delete")
+    .SetWidth(700)
+    .Filterable(true)
+    .Sanitized(false)
+    .Encoded(false)
+    .RenderValueAs(c => Html.ActionLink("Delete", "DeleteImage", new { id = c.Id }, new { onclick = "return confirm('Are you sure you want to delete this item?');" }));
+
+}).WithPaging(4).Sortable(true)
+</div>

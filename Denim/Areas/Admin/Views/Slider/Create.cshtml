@@ -1,0 +1,66 @@
+﻿@model Denim.Models.Slider
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+<style>
+    .alert {
+    padding: 5px;
+    background-color: deepskyblue; /* Red */
+    color: white;
+    margin-bottom: 20px;
+}
+
+/* The close button */
+.closebtn {
+    margin-left: 15px;
+    color: white;
+    font-weight: bold;
+    float: right;
+    font-size: 22px;
+    line-height: 20px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+/* When moving the mouse over the close button */
+.closebtn:hover {
+    color: black;
+}
+</style>
+<script>
+    var loadFile = function (event) {
+        var reader = new FileReader();
+        reader.onload = function () {
+            var output = document.getElementById('output');
+            output.width = 200;
+            output.height = 300;
+            output.src = reader.result;
+        };
+        reader.readAsDataURL(event.target.files[0]);
+    };
+</script>
+<h2>Create</h2>
+@using (Html.BeginForm("AddImages", "Slider", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+
+    <input type="file" name="file" id="file" accept="image/*" onchange="loadFile(event)" style="font:bold 15px large,verdana" class="btn btn-info"><br />
+  
+    <div class="alert alert-info, col-sm-4">
+        <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+        <strong>Warning!</strong> Selected Image must be of dimenson 1140*350.
+    </div><br />
+    <div>
+        <img id="output" />
+    </div>
+
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+
+
+}

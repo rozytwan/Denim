@@ -1,0 +1,78 @@
+﻿@using Denim.Models;
+@*@model IEnumerable<GalleryEventView>*@
+@model IList<GalleryEventView>
+@{
+    ViewBag.Title = "Gallery";
+    Layout = "~/Views/Shared/_FinanceLayout.cshtml";
+}
+
+<div class="container">
+
+    <div class="row">
+        <div class="panel-group acc-v1" id="accordion-1">
+            @{
+                int count = 0;
+                int groupcount = 0;
+                var last = "";
+            }
+            @foreach (var item in Model.GroupBy(item => item.Id))
+            {
+                string classname = "panel";
+                if (count == 0)
+                {
+                    classname = "panel-collapse";
+                }
+                else
+                {
+                    classname = "panel-collapse collapse out";
+                }
+                groupcount = item.Count();
+                count++;
+                <div class="panel panel-default">              
+
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion-1" href=".collapse-@count">
+                                @foreach (var item1 in item.Distinct())
+                                {
+                                    if (@item1.Note != last)
+                                    {
+                                <b>@item1.Note &nbsp; &nbsp;</b>
+                                @item1.Date.ToShortDateString();
+                                        last = @item1.Note;
+                                    }
+                                }
+                            </a>
+                        </h4>
+                    </div>
+                    @*<div class="collapse-@count panel-collapse collapse out">*@
+                     <div class="collapse-@count @classname">
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    @foreach (var item1 in item)
+                                    {
+                                        count++;
+                                        if (count == groupcount)
+                                        {
+                                            count = 0;
+                                            groupcount = 0;
+                                        }
+                                        <div class="col-md-3" style="margin-top:2%;">
+
+                                            <a href="~/@Html.DisplayFor(modelItem => item1.ImagePath)" class="gallery-image data-gallery">
+                                                <img src='~/@Html.DisplayFor(modelItem => item1.ImagePath)' height="300" width="400" class="img-responsive">
+                                            </a>
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+
+    </div>
+
+</div>

@@ -1,0 +1,28 @@
+﻿@{
+    ViewBag.Title = "Downloads";
+    Layout = "~/Views/Shared/_FinanceLayout.cshtml";
+}
+<style>  h4{
+         color:#72c02c;
+    }
+    </style>
+
+
+@model List<string>
+
+<div style="margin-left:10%">
+    <h1>Downloads</h1>
+    <table width="400" height="250" style="font:bold 15px large,verdana">
+        <tr>
+            <th><h3><u><strong>Documents</strong></u></h3></th>
+            <th><h3><u><strong>Links</strong></u></h3></th>
+        </tr>
+        @for (var i = 0; i <= Model.Count - 1; i++)
+        {
+            <tr>
+                <td><strong>@Model[i].ToString()</strong></td>
+                <td>@Html.ActionLink("Download", "Download", new { ImageName = @Model[i].ToString() }) </td>
+            </tr>
+        }
+    </table>
+</div> 

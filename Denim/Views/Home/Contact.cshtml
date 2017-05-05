@@ -1,0 +1,93 @@
+﻿@model Denim.Models.Mail
+@{
+    ViewBag.Title = "Contact";
+  
+}
+<h2 style="margin-top:0%">@ViewBag.Title</h2>
+<style>
+    #map {
+        height: 300px;
+        width: 100%;
+    }
+            h4{
+         color:#72c02c;
+    }     
+    
+</style>
+ 
+    <div id="map"></div>
+    <script>
+	//https://www.w3schools.com/html/tryit.asp?filename=tryhtml5_geolocation
+      function initMap() {
+       // var uluru = {lat: -25.363, lng: 131.044};
+	    var uluru = {lat: 27.7041208, lng: 85.34664029999999};
+        var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 16,
+          center: uluru
+        });
+        var marker = new google.maps.Marker({
+          position: uluru,
+          map: map
+        });
+      }
+    </script>
+    <script async defer
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBy4hpAV8o3AiIUlFiOAEwNDwehH8JjCFw&callback=initMap">
+    </script>
+
+<div class="col-sm-1">
+</div>
+    <div class="col-sm-5">
+        <div class="col">
+            <address>
+                <br />
+               <h5> डेनिम बचत तथा ऋण सहकारी संस्था लि.</h5>
+                <h5> बौद्ध ६, काठमाडौ</h5>
+             <h5> सम्पर्क फोनस् : ९७७ १ ४९१०१८३ </h5>
+        
+</address>
+  <address>
+                <strong>Support:</strong>   <a href="mailto:Support@example.com">info@denim.com.np</a><br />
+                <strong>Marketing:</strong> <a href="mailto:Marketing@example.com">Marketing@example.com</a>
+            </address>
+        </div>
+    </div>
+
+    <div class="col-sm-6">
+
+        <div id="contact-form">
+            <h4>Write to us</h4>
+@using (Html.BeginForm("Index", "Mail"))
+{
+
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="form-group">
+        @Html.TextBoxFor(model => model.Name, null, new { id = "name", placeholder = "Enter Name", @class = "form-control" })<br />
+        @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+        </div>
+        <div class="form-group">
+            @Html.TextBoxFor(model => model.Email, null, new { id = "email", placeholder = "Enter Email", @class = "form-control" })<br />
+            @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                @Html.TextBoxFor(model => model.Mobile, null, new { id = "mobile", placeholder = "Enter Mobile", @class = "form-control" })<br />
+                @Html.ValidationMessageFor(model => model.Mobile, "", new { @class = "text-danger" })
+                </div>
+
+        
+                <div class="form-group">
+                    @Html.TextBoxFor(model => model.Body, null, new { id = "message", placeholder = "Enter Message", @class = "form-control" })<br />
+                    @Html.ValidationMessageFor(model => model.Body, "", new { @class = "text-danger" })
+                    </div>
+                    <button type="submit" class="btn btn-success">Send</button>
+
+                    }
+                </div>
+    </div>
+
+
+
+
+
+
+

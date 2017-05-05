@@ -1,0 +1,345 @@
+﻿
+@*@model IEnumerable<DenimSACCOS.Models.Gallery>*@
+
+@model Denim.Models.EventGallery
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" />
+
+@{
+    ViewBag.Title = "Home Page";
+}
+<Link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<style>
+    .carousel-inner > .item > img,
+    .carousel-inner > .item > a > img {
+        width: 100%;
+        height: 100%;
+    }
+    /*#myCarousel{height=320px; width=100%;}*/
+</style>
+<script>
+    jQuery(function ($) {
+        $('.secret-source').secretSource({
+            includeTag: false
+        });
+
+        $('#banner-fade').bjqs({
+            height: 320,
+            width: 620,
+            responsive: true
+        });
+    });
+</script>
+
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        $('#result').hide();
+        var currentTime = new Date();
+        var fullDate = new Date()
+        var eventnotes = [
+                      
+
+        ];
+ var my_calendar = $("#dncalendar-container").dnCalendar({
+
+            monthNames: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
+            monthNamesShort: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Agu', 'Sep', 'Oct', 'Nov', 'Dec'],
+            dayNames: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
+            dayNamesShort: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+            dataTitles: { defaultDate: 'default', today: '' },
+            notes: eventnotes,
+            showNotes: true,
+            startWeek: 'sunday',
+            dayClick: function (currentTime, view) {
+
+
+
+                eventnotes.push({ "date": (currentTime.getDate()) + " - " + (currentTime.getMonth() + 1) + " - " + currentTime.getFullYear(), "note": my_text });
+            }
+        });
+        my_calendar.build();
+
+
+    });
+</script>
+
+
+@*For Slider*@
+<div class="container">
+    <div id="myCarousel" class="carousel slide" data-ride="carousel" >
+        <!-- Indicators -->
+        <ol class="carousel-indicators">
+            @{
+                int b = 0;
+            }
+            @foreach (var item in @Model.files)
+            {
+                if (b == 0)
+                {
+                    <li data-target="#myCarousel" data-slide-to="@b" class="active"></li>
+                }
+                else
+                {
+                    <li data-target="#myCarousel" data-slide-to="@b"></li>
+                }
+                b++;
+            }
+        </ol>
+
+        <div class="carousel-inner" role="listbox" style="width:100%; height: 350px !important;">
+            @{
+                int a = 0;
+            }
+            @foreach (var item in Model.files)
+            {
+                if (a == 0)
+                {
+                    <div class="item active">
+                        <img class="img" src='~/@Html.DisplayFor(modelItem => item.ImagePath)'
+                             title='@Html.DisplayFor(modelItem => item.ImageName)' alt="" >
+                        <div class="carousel-caption">
+                            <h3>@Html.DisplayFor(modelItem => item.ImageName)</h3>
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    <div class="item">
+                        <img class="img" src='~/@Html.DisplayFor(modelItem => item.ImagePath)'
+                             title='@Html.DisplayFor(modelItem => item.ImageName)' alt="">
+                        <div class="carousel-caption">
+                            <h3>@Html.DisplayFor(modelItem => item.ImageName)</h3>
+                        </div>
+                    </div>
+                }
+                a++;
+            }
+        </div>
+        <!-- Left and right controls -->
+        <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+            <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+        </a>
+        <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+            <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+        </a>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="col-md-8" style="margin-top:1%; ">
+                <div class="col-md-12">
+                    <p style="float:left;">
+                        <img src="@Url.Content("~/Images/logo1.png")" height="130" width="180" />
+                    </p>
+                    <p>
+                        <h3> Chairman's Message</h3><br />
+                        It is a matter of pride to pen down the message for the annual school magazine of Greenfield Public School. My heart fills with immense pleasure as I perceive the progress being made at Greenfield Public School.<br />
+                        The seeds of an idea sown in 1997 has quickly come to fruition, and the school is growing into strong sapling. It is the endeavour of the Seth Banarasi Dass Group to make the academic like, a smooth journey full of joy and discovery.<br />
+                        The school magazine is a platform for the students to express their creative pursuit which develops in them originality of thought and perception.The Contents of the magazine reflect the wonderful creativity of thoughts and imagination of our Greenians.<br />
+                        I extend my warm wishes to the Principal, Staff and Students of Greenfield Public School to Continue this journey on the road of excellence.<br />
+                        "May the sapling grow into a sturdy tree and spread its branches".<br />
+                        ROSHAN LAL GUPTA<br />
+                        Chairman<br />
+                        Seth Banarasi Dass Group of Institutions
+                    </p>
+
+                </div>
+                <div class="col-md-12">
+                    <h3> Latest News</h3>
+                    <table width="500" height="200">
+                      
+                        @foreach (var item in @Model.NewsList)
+                        {
+                            <tr>
+                                <td style="font-size:medium">
+                                    @Html.ActionLink(@item.Title, "Display", new { id = item.Id })
+
+                                </td>
+                                <td> <span style="color:red">@item.Date.ToString("dd/MM/yyyy")</span></td>
+
+                                <td>
+                                    <span style="color:red">'@item.Description.ToString().Substring(0, (item.Description.Length > 30) ? 30 : item.Description.Length). . . . . . .</span>
+                                </td>
+                            </tr>
+                        }
+                    </table>
+                    @*@Html.Partial("_NewsDescription",Model.NewsList)*@
+                </div>
+
+
+
+            </div>
+            <div class="col-sm-4">
+                <div class="col-sm-8">
+                    <div id="dncalendar-container" style="max-height:20%">
+
+                       calendar
+                    </div>
+  
+                    <div>
+                        @foreach (var item in @Model.eventList)
+                        {
+                            <p>
+                                <span style="color:red">@item.Date.ToString("dd/MM/yyyy")</span>&nbsp;&nbsp;&nbsp;
+                                <span style="color:red">@item.Note</span>
+                            </p>
+                        }
+                    </div>
+                </div>
+                <div class="col-sm-12">
+                    <div class="col-sm-12">
+                        <h2>EMI Calculator </h2>
+                        <form role="form">
+                            <div class="form-group">
+                                <label for="loanamount">Loan Amount:</label>
+                                <input type="text" class="form-control" id="la_value" required="required" placeholder="Enter Loan Amount">
+                            </div>
+                            <div class="form-group">
+                                <label for="months">Months:</label>
+                                <input type="text" class="form-control" id="nm_value" required="required" placeholder="Enter Months">
+                            </div>
+                            <div class="form-group">
+                                <label for="months">Rate of Interest:</label>
+                                <input type="text" class="form-control" id="roi_value" required="required" placeholder="Enter Rate Of Interest">
+                            </div>
+                            <input type="submit" id="btnCalc" class="btn btn-success btn-sm" value="Calculate" />
+
+                        </form>
+                        <br />
+                        <div id="result">
+                            <div class="alert alert-info col-md-4">
+                                <center>
+                                    <strong>Monthly EMI</strong> <BR>
+                                    <button type="button" class="btn btn-success btn-sm" id='emi'></button>
+                                </center>
+                            </div>
+                            <div class="alert alert-info col-md-4">
+                                <center>
+                                    <strong>Total Interest</strong> <BR>
+                                    <button type="button" class="btn btn-warning btn-sm" id='tbl_int'></button>
+                                </center>
+                            </div>
+
+                            <div class="alert alert-info col-md-4">
+                                <center>
+                                    <strong>Payable Amount</strong> <BR>
+                                    <button type="button" class="btn btn-info btn-sm" id='tbl_full'></button>
+                                </center>
+                            </div>
+                            <div class="alert alert-info col-md-6" style="margin-left:20%">
+                                <center>
+                                    <button type="button" class="btn btn-info btn-sm" id="btnAmmort">Ammotrization Table</button>
+                                </center>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="box-body table-responsive " id='datatable'>
+        <table id='illustrate' class='table table-striped table-bordered'></table>
+    </div>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#btnCalc").click(function (e) {
+                calculateEMI();
+                $('#result').show();
+                e.preventDefault();
+            });
+
+            $("#btnAmmort").click(function (e) {
+
+                AmmortizeTable();
+
+                e.preventDefault();
+            });
+
+            function calculateEMI() {
+                var loanAmount = $("#la_value").val();
+                var numberOfMonths = $("#nm_value").val();
+                var rateOfInterest = $("#roi_value").val();
+                var monthlyInterestRatio = (rateOfInterest / 100) / 12;
+
+                var top = Math.pow((1 + monthlyInterestRatio), numberOfMonths);
+                var bottom = top - 1;
+                var sp = top / bottom;
+                var emi = ((loanAmount * monthlyInterestRatio) * sp);
+                var full = numberOfMonths * emi;
+                var interest = full - loanAmount;
+                var int_pge = (interest / full) * 100;
+                 $("#tbl_int_pge").html(int_pge.toFixed(2) + " %");
+                $("#tbl_loan_pge").html((100-int_pge.toFixed(2))+" %");
+                var emi_str = emi.toFixed(2).toString().replace(/,/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+                var loanAmount_str = loanAmount.toString().replace(/,/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+                var full_str = full.toFixed(2).toString().replace(/,/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+                var int_str = interest.toFixed(2).toString().replace(/,/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+
+                $("#emi").html(emi_str);
+                $("#tbl_emi").html(emi_str);
+                $("#tbl_la").html(loanAmount_str);
+                $("#tbl_nm").html(numberOfMonths);
+                $("#tbl_roi").html(rateOfInterest);
+                $("#tbl_full").html(full_str);
+                $("#tbl_int").html(int_str);
+
+            }
+
+            function AmmortizeTable() {
+                var loanAmount = $("#la_value").val();
+                var numberOfMonths = $("#nm_value").val();
+                var rateOfInterest = $("#roi_value").val();
+                var monthlyInterestRatio = (rateOfInterest / 100) / 12;
+
+                var top = Math.pow((1 + monthlyInterestRatio), numberOfMonths);
+                var bottom = top - 1;
+                var sp = top / bottom;
+                var emi = ((loanAmount * monthlyInterestRatio) * sp);
+                var full = numberOfMonths * emi;
+                var interest = full - loanAmount;
+                var int_pge = (interest / full) * 100;
+
+                var detailDesc = "<table id='illustrate' border='1' class='table table-striped table-bordered'><thead><tr class='success'><th>Payment No.</th><th>Begining Balance</th><th>EMI</th><th>Principal</th><th>Interest</th><th>Ending Balance</th></thead><tbody>";
+                var bb = parseInt(loanAmount);
+                var int_dd = 0; var pre_dd = 0; var end_dd = 0;
+                for (var j = 1; j <= numberOfMonths; j++) {
+                    int_dd = bb * ((rateOfInterest / 100) / 12);
+                    pre_dd = emi.toFixed(2) - int_dd.toFixed(2);
+                    end_dd = bb - pre_dd.toFixed(2);
+                    detailDesc += "<tr><td>" + j + "</td><td>" + bb.toFixed(2) + "</td><td>" + emi.toFixed(2) + "</td><td>" + pre_dd.toFixed(2) + "</td><td>" + int_dd.toFixed(2) + "</td><td>" + end_dd.toFixed(2) + "</td></tr>";
+                    bb = bb - pre_dd.toFixed(2);
+                }
+                detailDesc += "</tbody></table>";
+
+                var dataToSend = JSON.stringify({ 'table': detailDesc });
+                $.ajax({
+                    url: '@Url.Action("SendAmmortization", "Home")',
+                    type: "POST",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    data: dataToSend,
+                    success: function (msg) {
+
+                        window.location.href = "/Home/viewTable";
+
+                    },
+                    error: function (msg) {
+
+                        window.location.href = "/Home/viewTable";
+                    }
+                });
+
+                // $("#illustrate").html(detailDesc);
+            }
+
+        });
+    </script>
+
+</div>

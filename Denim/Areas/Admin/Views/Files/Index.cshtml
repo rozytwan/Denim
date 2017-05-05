@@ -1,0 +1,33 @@
+﻿@model IEnumerable<Denim.Models.File>
+@using GridMvc.Html
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+
+<h2><strong>Upload Files Here</strong></h2>
+<br />
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<script src="~/Scripts/gridmvc.min.js"></script>
+<link href="~/Content/Gridmvc.css" rel="stylesheet" />
+<div class="code-cut">
+    @Html.Grid(Model).Columns(columns =>
+{
+    columns.Add(c => c.FileName).Titled("FileName").Filterable(true);
+    columns.Add(c => c.FilePath).Titled("FilePath").Filterable(true);
+
+
+    columns.Add()
+    .Titled("Delete")
+    .SetWidth(10)
+    .Filterable(true)
+    .Sanitized(false)
+    .Encoded(false)
+    .RenderValueAs(c => Html.ActionLink("Delete", "DeleteFiles", new { id = c.Id }, new { onclick = "return confirm('Are sure wants to delete?');" }));
+
+}).WithPaging(4).Sortable(true)
+</div>

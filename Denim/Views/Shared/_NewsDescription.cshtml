@@ -1,0 +1,18 @@
+﻿@*@model Denim.Models.News*@
+
+@*<div class="col-md-8">
+
+    <h3><span style="color:red">Title :</span>@Model.Title</h3>
+    <div>
+        <h3><span style="color:red">Discription :</span>@Model.Description</h3>
+    </div>
+    @*<span style="color:red">@Model.Description</span>
+      <div id="result"></div>*@
+@*</div>*@
+@model PagedList.IPagedList<Denim.Models.News>
+@using PagedList.Mvc;
+<link href="/Content/PagedList.css" rel="stylesheet" type="text/css" />
+<div>
+    Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+    @Html.PagedListPager(Model, page => Url.Action("Notice", new { page }))
+</div>

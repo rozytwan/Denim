@@ -1,0 +1,37 @@
+﻿@model IEnumerable<Denim.Models.News>
+@using GridMvc.Html
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+@Html.ActionLink("Create New", "AddNews")
+</p>
+<script src="~/Scripts/gridmvc.min.js"></script>
+<link href="~/Content/Gridmvc.css" rel="stylesheet" />
+<div class="code-cut">
+    @Html.Grid(Model).Columns(columns =>
+{
+
+    columns.Add(c => c.Title).Titled("News Title").Filterable(true);
+    columns.Add(c => c.Description).Titled("News Description").Filterable(true);
+    columns.Add(c => c.Date).Titled("News Date").Filterable(true);
+    columns.Add().Titled("Edit")
+    .Encoded(false)
+    .Sanitized(false)
+    .SetWidth(30)
+    .RenderValueAs(c => Html.ActionLink("Edit", "EditEvent", new { id = c.Id }));
+
+    columns.Add()
+    .Titled("Delete")
+    .SetWidth(10)
+    .Filterable(true)
+    .Sanitized(false)
+    .Encoded(false)
+    .RenderValueAs(c => Html.ActionLink("Delete", "DeleteEvent", new { id = c.Id }));
+
+}).WithPaging(4).Sortable(true)
+</div>
